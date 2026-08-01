@@ -12,8 +12,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Domain\Domain.csproj" />
-    <ProjectReference Include="..\GlobalStore\GlobalStore.csproj" />
+    <ProjectReference Include="..\Domain\Zerionix.Domain.csproj" />
+    <ProjectReference Include="..\GlobalStore\Zerionix.GlobalStore.csproj" />
   </ItemGroup>
 
 </Project>
