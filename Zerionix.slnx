@@ -1,20 +1,20 @@
 <Solution>
   <Folder Name="/01/">
-    <Project Path="Entrypoint/Zerionix.Entrypoint.csproj" />
+    <Project Path="Zerionix.Entrypoint/Zerionix.Entrypoint.csproj" />
   </Folder>
   <Folder Name="/02/">
-    <Project Path="Service/Zerionix.Service.csproj" Id="553734fb-a437-4949-bc98-5ba752f2d74f" />
+    <Project Path="Zerionix.Service/Zerionix.Service.csproj" Id="553734fb-a437-4949-bc98-5ba752f2d74f" />
   </Folder>
   <Folder Name="/03/">
-    <Project Path="Parser/Zerionix.Parser.csproj" />
+    <Project Path="Zerionix.Parser/Zerionix.Parser.csproj" />
   </Folder>
   <Folder Name="/04/">
-    <Project Path="GlobalStore/Zerionix.GlobalStore.csproj" Id="f1d94ae8-bca0-47b4-9053-f3be25ed5c4a" />
+    <Project Path="Zerionix.GlobalStore/Zerionix.GlobalStore.csproj" Id="f1d94ae8-bca0-47b4-9053-f3be25ed5c4a" />
   </Folder>
   <Folder Name="/98/">
-    <Project Path="Sample/Zerionix.Sample.csproj" />
+    <Project Path="Zerionix.Sample/Zerionix.Sample.csproj" />
   </Folder>
   <Folder Name="/99/">
-    <Project Path="Domain/Zerionix.Domain.csproj" />
+    <Project Path="Zerionix.Domain/Zerionix.Domain.csproj" />
   </Folder>
 </Solution>

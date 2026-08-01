@@ -1,20 +1,19 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
     <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.CodeAnalysis.Common" Version="5.6.0" />
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="5.6.0" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.10" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Parser\Zerionix.Parser.csproj" />
-    <ProjectReference Include="..\Service\Zerionix.Service.csproj" />
+    <ProjectReference Include="..\Zerionix.Domain\Zerionix.Domain.csproj" />
+    <ProjectReference Include="..\Zerionix.GlobalStore\Zerionix.GlobalStore.csproj" />
   </ItemGroup>
 
 </Project>

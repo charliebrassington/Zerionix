@@ -13,8 +13,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Domain\Zerionix.Domain.csproj" />
-    <ProjectReference Include="..\Parser\Zerionix.Parser.csproj" />
+    <ProjectReference Include="..\Zerionix.Domain\Zerionix.Domain.csproj" />
+    <ProjectReference Include="..\Zerionix.Parser\Zerionix.Parser.csproj" />
   </ItemGroup>
 
 </Project>
