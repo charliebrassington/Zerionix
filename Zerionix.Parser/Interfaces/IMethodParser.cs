@@ -1,11 +1,11 @@
-﻿using Domain.Models;
+﻿using Zerionix.Domain.Models;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Parser.Interfaces
+namespace Zerionix.Parser.Interfaces
 {
     public interface IMethodParser
     {

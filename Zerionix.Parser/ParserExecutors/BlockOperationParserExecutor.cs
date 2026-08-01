@@ -1,12 +1,12 @@
-﻿using Domain.Models;
+﻿using Zerionix.Domain.Models;
 using Microsoft.CodeAnalysis;
-using Parser.Interfaces;
-using Parser.Interfaces.BlockOperationParserInterfaces;
+using Zerionix.Parser.Interfaces;
+using Zerionix.Parser.Interfaces.BlockOperationParserInterfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Parser.ParserExecutors
+namespace Zerionix.Parser.ParserExecutors
 {
     public class BlockOperationParserExecutor : IBlockOperationParserExecutor
     {

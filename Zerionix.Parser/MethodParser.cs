@@ -1,17 +1,17 @@
-﻿using Domain.Models;
+﻿using Zerionix.Domain.Models;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.FlowAnalysis;
 using Microsoft.CodeAnalysis.Operations;
-using Parser.BlockOperationParsers;
-using Parser.Interfaces;
-using Parser.Interfaces.BlockOperationParserInterfaces;
-using Parser.ParserExecutors;
+using Zerionix.Parser.BlockOperationParsers;
+using Zerionix.Parser.Interfaces;
+using Zerionix.Parser.Interfaces.BlockOperationParserInterfaces;
+using Zerionix.Parser.ParserExecutors;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Parser
+namespace Zerionix.Parser
 {
     public class MethodParser : IMethodParser
     {

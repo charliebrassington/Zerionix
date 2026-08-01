@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Domain.Models
+namespace Zerionix.Domain.Models
 {
     public class MethodGlobalStore
     {

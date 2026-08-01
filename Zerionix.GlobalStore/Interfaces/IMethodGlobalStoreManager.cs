@@ -1,9 +1,9 @@
-﻿using Domain.Models;
+﻿using Zerionix.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace GlobalStore.Interfaces
+namespace Zerionix.GlobalStore.Interfaces
 {
     public interface IMethodGlobalStoreManager
     {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Domain.ParserResults
+namespace Zerionix.Domain.ParserResults
 {
     public class SimpleAssignmentResult
     {

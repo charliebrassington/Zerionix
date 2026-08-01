@@ -1,11 +1,11 @@
-﻿using Domain.ParserResults;
+﻿using Zerionix.Domain.ParserResults;
 using Microsoft.CodeAnalysis.Operations;
-using Parser.Interfaces.OperationParserInterfaces;
+using Zerionix.Parser.Interfaces.OperationParserInterfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Parser.OperationParsers
+namespace Zerionix.Parser.OperationParsers
 {
     public class SimpleAssignmentParser : IOperationParser<ISimpleAssignmentOperation, SimpleAssignmentResult>
     {

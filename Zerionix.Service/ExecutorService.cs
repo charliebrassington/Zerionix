@@ -1,13 +1,13 @@
-﻿using Domain.Models;
+﻿using Zerionix.Domain.Models;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
-using Parser.Interfaces;
-using Service.Interfaces;
+using Zerionix.Parser.Interfaces;
+using Zerionix.Service.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Service
+namespace Zerionix.Service
 {
     public class ExecutorService : IExecutorService
     {

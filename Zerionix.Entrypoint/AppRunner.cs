@@ -1,10 +1,10 @@
 ﻿using Microsoft.CodeAnalysis.CSharp;
-using Service.Interfaces;
+using Zerionix.Service.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Entrypoint
+namespace Zerionix.Entrypoint
 {
     public class AppRunner
     {

@@ -1,19 +1,19 @@
-﻿using Domain.ParserResults;
-using Entrypoint;
-using GlobalStore.Interfaces;
-using GlobalStore.ManagerGlobalStore;
+﻿using Zerionix.Domain.ParserResults;
+using Zerionix.Entrypoint;
+using Zerionix.GlobalStore.Interfaces;
+using Zerionix.GlobalStore.ManagerGlobalStore;
 using Microsoft.CodeAnalysis.Operations;
 using Microsoft.Extensions.DependencyInjection;
-using Parser;
-using Parser.BlockOperationParsers;
-using Parser.Interfaces;
-using Parser.Interfaces.BlockOperationParserInterfaces;
-using Parser.Interfaces.OperationParserInterfaces;
-using Parser.OperationParsers;
-using Parser.ParserExecutors;
-using Service;
-using Service.Interfaces;
-using Service.RulesService;
+using Zerionix.Parser;
+using Zerionix.Parser.BlockOperationParsers;
+using Zerionix.Parser.Interfaces;
+using Zerionix.Parser.Interfaces.BlockOperationParserInterfaces;
+using Zerionix.Parser.Interfaces.OperationParserInterfaces;
+using Zerionix.Parser.OperationParsers;
+using Zerionix.Parser.ParserExecutors;
+using Zerionix.Service;
+using Zerionix.Service.Interfaces;
+using Zerionix.Service.RulesService;
 
 
 var services = new ServiceCollection();

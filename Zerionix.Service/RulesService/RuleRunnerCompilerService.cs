@@ -1,14 +1,14 @@
-﻿using Domain.Models;
+﻿using Zerionix.Domain.Models;
 using Microsoft.CodeAnalysis.CSharp.Scripting;
 using Microsoft.CodeAnalysis.Scripting;
 using Microsoft.CSharp.RuntimeBinder;
-using Service.Interfaces;
+using Zerionix.Service.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Dynamic;
 using System.Text;
 
-namespace Service.RulesService
+namespace Zerionix.Service.RulesService
 {
     public class RuleRunnerCompilerService : IRuleRunnerCompilerService
     {

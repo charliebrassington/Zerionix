@@ -1,10 +1,10 @@
-﻿using Domain.Models;
-using Service.Interfaces;
+﻿using Zerionix.Domain.Models;
+using Zerionix.Service.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Service.RulesService
+namespace Zerionix.Service.RulesService
 {
     public class RuleExpressionBuilderService : IRuleExpressionBuilderService
     {

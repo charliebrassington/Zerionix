@@ -1,11 +1,11 @@
-﻿using Domain.Models;
+﻿using Zerionix.Domain.Models;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Parser.Interfaces;
+using Zerionix.Parser.Interfaces;
 
 
-namespace Parser
+namespace Zerionix.Parser
 {
     public class TreeParser : ITreeParser
     {

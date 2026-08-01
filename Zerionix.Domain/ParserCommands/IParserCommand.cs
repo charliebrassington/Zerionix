@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Domain.ParserCommands
+namespace Zerionix.Domain.ParserCommands
 {
     public interface IParserCommand
     {

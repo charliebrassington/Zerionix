@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Parser.Interfaces.OperationParserInterfaces
+namespace Zerionix.Parser.Interfaces.OperationParserInterfaces
 {
     public interface IOperationParser<Operation, Result>
     {

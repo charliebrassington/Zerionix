@@ -1,12 +1,12 @@
-﻿using Domain.Models;
-using Domain.ParserResults;
-using GlobalStore.Interfaces;
+﻿using Zerionix.Domain.Models;
+using Zerionix.Domain.ParserResults;
+using Zerionix.GlobalStore.Interfaces;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Operations;
-using Parser.Interfaces.BlockOperationParserInterfaces;
-using Parser.Interfaces.OperationParserInterfaces;
+using Zerionix.Parser.Interfaces.BlockOperationParserInterfaces;
+using Zerionix.Parser.Interfaces.OperationParserInterfaces;
 
-namespace Parser.BlockOperationParsers
+namespace Zerionix.Parser.BlockOperationParsers
 {
     public class VariableValueParser : IBlockOperationParser
     {

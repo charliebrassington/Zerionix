@@ -1,4 +1,4 @@
-﻿namespace Sample
+﻿namespace Zerionix.Sample
 {
     public class Program
     {
