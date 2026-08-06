@@ -3,11 +3,19 @@ using Zerionix.Service.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.Extensions.Logging;
 
 namespace Zerionix.Service.RulesService
 {
     public class RuleValidatorParserService : IRuleValidatorParserService
     {
+        private readonly ILogger<RuleValidatorParserService> _logger;
+
+        public RuleValidatorParserService(ILogger<RuleValidatorParserService> logger)
+        {
+            _logger = logger;
+        }
+
         public List<LogicRule> ConvertToRules(List<string> unparsedRuleList)
         {
             var parsedRule = new List<LogicRule>();
@@ -17,7 +25,7 @@ namespace Zerionix.Service.RulesService
                 var ruleParts = unparsedRule.Split(" ");
                 if (ruleParts.Length != 3)
                 {
-                    Console.WriteLine($"Unable to parse {unparsedRule}");
+                    _logger.LogInformation("Unable to parse rule: {unparsedRule}", unparsedRule);
                     continue;
                 }
 

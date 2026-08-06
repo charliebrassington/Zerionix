@@ -4,11 +4,19 @@ using Zerionix.Parser.Interfaces.OperationParserInterfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.Extensions.Logging;
 
 namespace Zerionix.Parser.OperationParsers
 {
     public class SimpleAssignmentParser : IOperationParser<ISimpleAssignmentOperation, SimpleAssignmentResult>
     {
+        private readonly ILogger<SimpleAssignmentParser> _logger;
+
+        public SimpleAssignmentParser(ILogger<SimpleAssignmentParser> logger)
+        {
+            _logger = logger;
+        }
+
         public SimpleAssignmentResult ParseOperation(ISimpleAssignmentOperation operation)
         {
             var result = new SimpleAssignmentResult();
@@ -16,7 +24,8 @@ namespace Zerionix.Parser.OperationParsers
 
             foreach (var childOp in operation.ChildOperations)
             {
-                Console.WriteLine(childOp.Kind);
+                _logger.LogDebug("Parsing SimpleAssignment Child OP: {childOp.Kind}", childOp.Kind);
+
                 if (childOp is ILocalReferenceOperation localReferenceOperation)
                 {
                     result.LocalReferenceNameList.Add(localReferenceOperation.Local.Name);

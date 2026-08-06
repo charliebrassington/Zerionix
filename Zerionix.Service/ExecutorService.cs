@@ -6,6 +6,7 @@ using Zerionix.Service.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.Extensions.Logging;
 
 namespace Zerionix.Service
 {
@@ -13,26 +14,30 @@ namespace Zerionix.Service
     {
         private readonly ITreeParser _treeParser;
         private readonly IRulesService _rulesService;
+        private readonly ILogger<ExecutorService> _logger;
 
-        public ExecutorService(ITreeParser treeParser, IRulesService rulesService)
+        public ExecutorService(ITreeParser treeParser, IRulesService rulesService, ILogger<ExecutorService> logger)
         {
             _treeParser = treeParser;
             _rulesService = rulesService;
+            _logger = logger;
         }
 
         public async Task Execute(List<SyntaxTree> treeList, List<string> ruleList)
         {
             var methodGlobalStoreList = _treeParser.ParseTrees(treeList);
-            var symbolicValuesList = methodGlobalStoreList.SelectMany(m => m.SymbolicValueList).ToList();
 
-            var ruleCheckResults = await _rulesService.CheckRulesForViolations(ruleList, symbolicValuesList);
-
-            if (ruleCheckResults == null)
-                return;
-
-            foreach (var ruleResultPair in ruleCheckResults)
+            foreach (var methodGlobalStore in methodGlobalStoreList)
             {
-                Console.WriteLine($"Rule: {ruleResultPair.Key} Rule Passed: {ruleResultPair.Value}");
+                var ruleCheckResults = await _rulesService.CheckRulesForViolations(ruleList, methodGlobalStore.SymbolicValueList);
+
+                if (ruleCheckResults == null)
+                    continue;
+
+                foreach (var ruleResultPair in ruleCheckResults.Where(kv => !kv.Value))
+                {
+                    _logger.LogInformation("Rule {ruleResultPair.Key} was violated in {methodGlobalStore.TracebackReference}", ruleResultPair.Key, methodGlobalStore.TracebackReference);
+                }
             }
         }
     }

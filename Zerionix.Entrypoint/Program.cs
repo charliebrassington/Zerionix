@@ -4,6 +4,7 @@ using Zerionix.GlobalStore.Interfaces;
 using Zerionix.GlobalStore.ManagerGlobalStore;
 using Microsoft.CodeAnalysis.Operations;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Zerionix.Parser;
 using Zerionix.Parser.BlockOperationParsers;
 using Zerionix.Parser.Interfaces;
@@ -17,6 +18,17 @@ using Zerionix.Service.RulesService;
 
 
 var services = new ServiceCollection();
+
+services.AddLogging(builder =>
+{
+    builder.AddConsole();
+
+#if DEBUG
+    builder.SetMinimumLevel(LogLevel.Debug);
+#else
+    builder.SetMinimumLevel(LogLevel.Information);
+#endif
+});
 
 services.AddTransient<IOperationParser<ISimpleAssignmentOperation, SimpleAssignmentResult>, SimpleAssignmentParser>();
 services.AddTransient<IMethodGlobalStoreManager, MethodGlobalStoreManager>();
