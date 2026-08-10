@@ -7,6 +7,6 @@ namespace Zerionix.Service.Interfaces
 {
     public interface IExecutorService
     {
-        Task Execute(List<SyntaxTree> treeList, List<string> ruleList);
+        Task Execute(string workspacePath, List<string> ruleList);
     }
 }

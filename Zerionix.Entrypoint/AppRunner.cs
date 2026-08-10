@@ -17,15 +17,9 @@ namespace Zerionix.Entrypoint
 
         public async Task Run(string[] arguments)
         {
-            var trees = Directory
-                .GetFiles(arguments[0], "*.cs", SearchOption.AllDirectories)
-                .Select(file =>
-                    CSharpSyntaxTree.ParseText(File.ReadAllText(file), path: file))
-                .ToList();
+            var ruleList = File.ReadAllLines(arguments[1]).ToList();
 
-            var ruleList = File.ReadAllLines($"{arguments[0]}/RULES.txt").ToList();
-
-            await _executorService.Execute(trees, ruleList);
+            await _executorService.Execute(arguments[0], ruleList);
         }
     }
 }

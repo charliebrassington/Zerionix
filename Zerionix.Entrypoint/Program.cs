@@ -44,6 +44,8 @@ services.AddTransient<IRuleRunnerCompilerService, RuleRunnerCompilerService>();
 services.AddTransient<IRulesService, RulesService>();
 
 services.AddTransient<ITreeParser, TreeParser>();
+
+services.AddTransient<IWorkspaceService, WorkspaceService>();
 services.AddTransient<IExecutorService, ExecutorService>();
 
 services.AddTransient<AppRunner>();
