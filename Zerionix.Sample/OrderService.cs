@@ -8,7 +8,17 @@ namespace Zerionix.Sample
     {
         public Order CreateOrder(int userId)
         {
-            var total = -50m;
+            decimal total;
+            var x = true;
+            if (x == true)
+            {
+                total = -50m;
+            }
+            else
+            {
+                total = 1;
+            }
+
             var totalB = total;
             var totalC = totalB;
             var totalD = total;

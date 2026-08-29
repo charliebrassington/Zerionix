@@ -15,6 +15,7 @@ using Zerionix.Parser.ParserExecutors;
 using Zerionix.Service;
 using Zerionix.Service.Interfaces;
 using Zerionix.Service.RulesService;
+using Zerionix.Parser.BlockParsers;
 
 
 var services = new ServiceCollection();
@@ -35,6 +36,9 @@ services.AddTransient<IMethodGlobalStoreManager, MethodGlobalStoreManager>();
 
 services.AddTransient<IBlockOperationParser, VariableValueParser>();
 services.AddTransient<IBlockOperationParserExecutor, BlockOperationParserExecutor>();
+
+services.AddTransient<IBlockParser, ConditionParser>();
+services.AddTransient<IBlockParserExecutor, BlockParserExecutor>();
 
 services.AddTransient<IMethodParser, MethodParser>();
 

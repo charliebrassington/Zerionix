@@ -17,11 +17,16 @@ namespace Zerionix.Parser
     public class MethodParser : IMethodParser
     {
         private readonly IBlockOperationParserExecutor _blockOperationParserExecutor;
+        private readonly IBlockParserExecutor _blockParserExecutor;
         private readonly ILogger<MethodParser> _logger;
 
-        public MethodParser(IBlockOperationParserExecutor blockOperationParserExecutor, ILogger<MethodParser> logger)
+        public MethodParser(
+            IBlockOperationParserExecutor blockOperationParserExecutor, 
+            IBlockParserExecutor blockParserExecutor, 
+            ILogger<MethodParser> logger)
         {
             _blockOperationParserExecutor = blockOperationParserExecutor;
+            _blockParserExecutor = blockParserExecutor;
             _logger = logger;
         }
 
@@ -38,6 +43,8 @@ namespace Zerionix.Parser
 
             foreach (var block in cfg.Blocks)
             {
+                _blockParserExecutor.Execute(block, methodStore);
+
                 foreach (var op in block.Operations)
                 {
                     _logger.LogDebug("Parsing -> {method.Identifier}, Block: {block.Ordinal}, Op: {op.Kind}, Code: {op.Syntax}", method.Identifier, block.Ordinal, op.Kind, op.Syntax);
