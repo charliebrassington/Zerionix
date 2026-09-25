@@ -1,8 +1,7 @@
 {
   "profiles": {
     "Entrypoint": {
-      "commandName": "Project",
-      "commandLineArgs": "--workspace-file C:\\Users\\charl_focamk4\\OneDrive\\Desktop\\projects\\Zerionix\\Zerionix.Sample\\Zerionix.Sample.csproj --rule-file C:\\Users\\charl_focamk4\\OneDrive\\Desktop\\projects\\Zerionix\\Zerionix.Sample\\RULES.txt"
+      "commandName": "Project"
     }
   }
 }
