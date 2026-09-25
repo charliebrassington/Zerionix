@@ -39,7 +39,7 @@ namespace Zerionix.Parser.BlockOperationParsers
 
             if (simpleAssignmentResult.UnaryConstValue != null && localReferenceName != null)
             {
-                methodGlobalStore.SymbolicValueList.Add(new SymbolicValue { VariableReference = localReferenceName, Constant = simpleAssignmentResult.UnaryConstValue });
+                _methodGlobalStore.AddNewSymbolicValue(methodGlobalStore.SymbolicValueList, localReferenceName, simpleAssignmentResult.UnaryConstValue);
             }
 
             if (simpleAssignmentResult.PropertyRefName != null && localReferenceName != null)

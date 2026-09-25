@@ -15,6 +15,10 @@ using Zerionix.Parser.ParserExecutors;
 using Zerionix.Service;
 using Zerionix.Service.Interfaces;
 using Zerionix.Service.RulesService;
+using Zerionix.Parser.BlockParsers;
+using Zerionix.Parser.ConditionParsers;
+using Zerionix.Parser.Interfaces.ConditionParserInterfaces;
+using Zerionix.Parser.ConditionParsers.BinaryOperationEvaluationParser;
 
 
 var services = new ServiceCollection();
@@ -30,11 +34,24 @@ services.AddLogging(builder =>
 #endif
 });
 
+services.AddTransient<ICompareValueParser, CompareValueParser>();
+services.AddTransient<IEvaluateValueParser, EvaluateValueParser>();
+
+services.AddTransient<IBinaryOperationEvaluationParser, EvaluateBinaryParser>();
+services.AddTransient<IBinaryOperationEvaluationParser, EvaluateLiteralParser>();
+services.AddTransient<IBinaryOperationEvaluationParser, EvaluateLocalParser>();
+services.AddTransient<IBinaryOperationEvaluationParser, EvaluateAndOrParser>();
+
+services.AddTransient<IConditionEvaluatorParser, ConditionEvaluatorParser>();
+
 services.AddTransient<IOperationParser<ISimpleAssignmentOperation, SimpleAssignmentResult>, SimpleAssignmentParser>();
 services.AddTransient<IMethodGlobalStoreManager, MethodGlobalStoreManager>();
 
 services.AddTransient<IBlockOperationParser, VariableValueParser>();
 services.AddTransient<IBlockOperationParserExecutor, BlockOperationParserExecutor>();
+
+services.AddTransient<IBlockParser, ConditionParser>();
+services.AddTransient<IBlockParserExecutor, BlockParserExecutor>();
 
 services.AddTransient<IMethodParser, MethodParser>();
 
