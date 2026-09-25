@@ -8,15 +8,32 @@ namespace Zerionix.Sample
     {
         public Order CreateOrder(int userId)
         {
-            decimal total;
-            var x = true;
-            if (x == true)
+            decimal total = 20m;
+            var x = 2;
+            var y = 99;
+
+            if (x == 1)
             {
                 total = -50m;
             }
+            else if (x == 2)
+            {
+                if (y == 2)
+                {
+                    total = 1m;
+                }
+                else if (y == 1)
+                {
+                    total = 5m;
+                }
+                else if (y == 98 || y == 99)
+                {
+                    total = -1m;
+                }
+            }
             else
             {
-                total = 1;
+                total = 1m;
             }
 
             var totalB = total;

@@ -23,6 +23,11 @@ namespace Zerionix.Parser.ParserExecutors
             {
                 parser.ParseBlockOperation(operation, methodGlobalStore);
             }
+
+            foreach(var childOperation in operation.ChildOperations)
+            {
+                Execute(childOperation, methodGlobalStore);
+            }
         }
     }
 }

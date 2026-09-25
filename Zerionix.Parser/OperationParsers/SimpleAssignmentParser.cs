@@ -40,6 +40,11 @@ namespace Zerionix.Parser.OperationParsers
                 {
                     result.PropertyRefName = $"{propertyReferenceOperation.Property.ContainingType.Name}.{propertyReferenceOperation.Property.Name}";
                 }
+
+                if (childOp is ILiteralOperation literalOperation)
+                {
+                    result.UnaryConstValue = literalOperation.ConstantValue.Value;
+                }
             }
 
             return result;

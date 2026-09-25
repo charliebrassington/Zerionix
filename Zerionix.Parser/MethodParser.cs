@@ -21,8 +21,8 @@ namespace Zerionix.Parser
         private readonly ILogger<MethodParser> _logger;
 
         public MethodParser(
-            IBlockOperationParserExecutor blockOperationParserExecutor, 
-            IBlockParserExecutor blockParserExecutor, 
+            IBlockOperationParserExecutor blockOperationParserExecutor,
+            IBlockParserExecutor blockParserExecutor,
             ILogger<MethodParser> logger)
         {
             _blockOperationParserExecutor = blockOperationParserExecutor;
@@ -32,6 +32,7 @@ namespace Zerionix.Parser
 
         public MethodGlobalStore ParseMethod(MethodDeclarationSyntax method, SemanticModel semanticModel)
         {
+
             var methodStore = new MethodGlobalStore { TracebackReference = method.SyntaxTree.FilePath };
 
             var cfg = ControlFlowGraph.Create(method, semanticModel);
@@ -41,9 +42,14 @@ namespace Zerionix.Parser
 
             _logger.LogInformation("Parsing method: {method.Identifier}", method.Identifier);
 
+            BasicBlock? blockToVisit = null;
+
             foreach (var block in cfg.Blocks)
             {
-                _blockParserExecutor.Execute(block, methodStore);
+                if (blockToVisit != null && block != blockToVisit)
+                {
+                    continue;
+                }
 
                 foreach (var op in block.Operations)
                 {
@@ -51,9 +57,20 @@ namespace Zerionix.Parser
 
                     _blockOperationParserExecutor.Execute(op, methodStore);
                 }
+
+                _blockParserExecutor.Execute(block, methodStore);
+
+                blockToVisit = GetNextBlockToVisit(block, methodStore);
             }
 
             return methodStore;
+        }
+
+        private BasicBlock? GetNextBlockToVisit(BasicBlock currentBlock, MethodGlobalStore methodGlobalStore)
+        {
+            var blocksToVisitNext = methodGlobalStore.BlockConstraints.Where(c => c.BlockFrom == currentBlock && c.HasPassedConstaint);
+
+            return blocksToVisitNext.Count() == 1 ? blocksToVisitNext.First().BlockTo : currentBlock.FallThroughSuccessor?.Destination;
         }
     }
 }

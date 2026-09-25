@@ -1,4 +1,5 @@
 ﻿using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.FlowAnalysis;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
@@ -8,8 +9,8 @@ namespace Zerionix.Domain.Models
 {
     public class BlockConstraint
     {
-        public int BlockID { get; set; }
-        public IOperation? Condition { get; set; }
-        public bool HasToPassExpression { get; set; }
+        public BasicBlock? BlockTo { get; set; }
+        public BasicBlock? BlockFrom { get; set; }
+        public bool HasPassedConstaint { get; set; }
     }
 }
