@@ -8,5 +8,6 @@ namespace Zerionix.Domain.Models
     {
         public required string TracebackReference { get; set; }
         public List<SymbolicValue> SymbolicValueList { get; set; } = new();
+        public List<BlockConstraint> BlockConstraints { get; set; } = new();
     }
 }
