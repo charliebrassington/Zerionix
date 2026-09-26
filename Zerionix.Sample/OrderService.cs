@@ -8,7 +8,7 @@ namespace Zerionix.Sample
     {
         public Order CreateOrder(int userId)
         {
-            decimal total = 1m;
+            decimal total = 2m;
             var x = 2;
             var y = 99;
 
@@ -28,7 +28,7 @@ namespace Zerionix.Sample
                 }
                 else if (y == 98 || y == 99)
                 {
-                    total = total - 10m;
+                    total += -4m;
                 }
             }
             else
@@ -37,6 +37,9 @@ namespace Zerionix.Sample
             }
 
             var totalB = total;
+
+            totalB = totalB + 1m;
+
             var totalC = totalB;
             var totalD = total;
             var totalE = totalC;

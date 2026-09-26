@@ -1,5 +1,6 @@
 ﻿using Microsoft.CodeAnalysis.Operations;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using Zerionix.Domain.ParserResults;
 using Zerionix.Entrypoint;
@@ -37,8 +38,10 @@ services.AddLogging(builder =>
 });
 
 // Global helpers to host logic in one place where duplication exists
+services.AddTransient<IConstValueHelper, ConstValueHelper>();
 services.AddTransient<IBinaryOperatorMathHelper, BinaryOperatorMathHelper>();
-
+services.AddTransient<IMathOperationValueHelper, MathOperationValueHelper>();
+services.AddTransient<IVariableNameHelper, VariableNameHelper>();
 
 services.AddTransient<ICompareValueParser, CompareValueParser>();
 services.AddTransient<IEvaluateValueParser, EvaluateValueParser>();
@@ -50,11 +53,11 @@ services.AddTransient<IBinaryOperationEvaluationParser, EvaluateAndOrParser>();
 
 services.AddTransient<IConditionEvaluatorParser, ConditionEvaluatorParser>();
 
-services.AddTransient<IOperationParser<IBinaryOperation, BinaryOperationMathResult>, BinaryOperationMathParser>();
 services.AddTransient<IOperationParser<ISimpleAssignmentOperation, SimpleAssignmentResult>, SimpleAssignmentParser>();
 services.AddTransient<IMethodGlobalStoreManager, MethodGlobalStoreManager>();
 
 services.AddTransient<IBlockOperationParser, VariableValueParser>();
+services.AddTransient<IBlockOperationParser, ExpressionVariableValueParser>();
 services.AddTransient<IBlockOperationParserExecutor, BlockOperationParserExecutor>();
 
 services.AddTransient<IBlockParser, ConditionParser>();

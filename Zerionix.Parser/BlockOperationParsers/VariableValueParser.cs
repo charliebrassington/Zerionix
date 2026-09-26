@@ -30,21 +30,14 @@ namespace Zerionix.Parser.BlockOperationParsers
 
             var simpleAssignmentResult = _simpleAssignmentOperationParser.ParseOperation(simpleOp, methodGlobalStore);
 
-            if (simpleAssignmentResult.LocalReferenceNameList?.Count == 2)
+            if (simpleAssignmentResult.TargetName != null && simpleAssignmentResult.VariableName != null)
             {
-                _methodGlobalStore.AddSymbolicValue(methodGlobalStore.SymbolicValueList, simpleAssignmentResult.LocalReferenceNameList[1], simpleAssignmentResult.LocalReferenceNameList[0]);
+                _methodGlobalStore.AddSymbolicValue(methodGlobalStore.SymbolicValueList, simpleAssignmentResult.VariableName, simpleAssignmentResult.TargetName);
             }
 
-            var localReferenceName = simpleAssignmentResult.LocalReferenceNameList?.FirstOrDefault();
-
-            if (simpleAssignmentResult.UnaryConstValue != null && localReferenceName != null)
+            if (simpleAssignmentResult.TargetName != null && simpleAssignmentResult.VariableValue != null)
             {
-                _methodGlobalStore.AddNewSymbolicValue(methodGlobalStore.SymbolicValueList, localReferenceName, simpleAssignmentResult.UnaryConstValue);
-            }
-
-            if (simpleAssignmentResult.PropertyRefName != null && localReferenceName != null)
-            {
-                _methodGlobalStore.AddSymbolicValue(methodGlobalStore.SymbolicValueList, localReferenceName, simpleAssignmentResult.PropertyRefName);
+                _methodGlobalStore.AddNewSymbolicValue(methodGlobalStore.SymbolicValueList, simpleAssignmentResult.TargetName, simpleAssignmentResult.VariableValue);
             }
         }
     }
