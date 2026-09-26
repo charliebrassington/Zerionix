@@ -6,6 +6,7 @@ This is currently a work in progress and has a simple proof of concept and is no
 - Value assignment supporting SimpleAssignment ops for local/property references for unary op values
 - Runtime evaluation/compiling of bool expression logic for example the rule A > 0 will mean if A = -1 this rule is violated
 - If statement logic, nesting, else if and else statements supported, complex logic eg using method for if statement is not supported as of currently.
+- A bit of Math(s) Support for ops like *=, +=, /=, -=, and A = A + 1 (Haven't tested on complex op usage yet)
 
 ## Goal of the project
 Help .NET developers debugging large complex projects by parsing SQL logic, LINQ logic, NoSQL logic, ternary conditions, switch statements and more. 
