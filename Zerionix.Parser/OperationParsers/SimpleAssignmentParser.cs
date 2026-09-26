@@ -25,15 +25,14 @@ namespace Zerionix.Parser.OperationParsers
 
         public SimpleAssignmentResult ParseOperation(ISimpleAssignmentOperation operation, MethodGlobalStore methodGlobalStore)
         {
-            var result = new SimpleAssignmentResult();
-
             _logger.LogDebug("Parsing SimpleAssignment Target: {operation.Target.Kind}, Value: {operation.Value.Kind}", operation.Target.Kind, operation.Value.Kind);
 
-            result.TargetName = _variableNameHelper.GetVariableName(operation.Target);
-            result.VariableName = _variableNameHelper.GetVariableName(operation.Value);
-            result.VariableValue = _constValueHelper.GetConstValue(operation.Value, methodGlobalStore);
-
-            return result;
+            return new SimpleAssignmentResult 
+            {
+                TargetName = _variableNameHelper.GetVariableName(operation.Target),
+                VariableName = _variableNameHelper.GetVariableName(operation.Value),
+                VariableValue = _constValueHelper.GetConstValue(operation.Value, methodGlobalStore)
+            };
         }
     }
 }
