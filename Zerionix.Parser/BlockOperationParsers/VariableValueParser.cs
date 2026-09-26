@@ -28,7 +28,7 @@ namespace Zerionix.Parser.BlockOperationParsers
             if (operation is not ISimpleAssignmentOperation simpleOp) 
                 return;
 
-            var simpleAssignmentResult = _simpleAssignmentOperationParser.ParseOperation(simpleOp);
+            var simpleAssignmentResult = _simpleAssignmentOperationParser.ParseOperation(simpleOp, methodGlobalStore);
 
             if (simpleAssignmentResult.LocalReferenceNameList?.Count == 2)
             {

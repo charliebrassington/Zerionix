@@ -1,24 +1,26 @@
-﻿using Zerionix.Domain.ParserResults;
+﻿using Microsoft.CodeAnalysis.Operations;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Zerionix.Domain.ParserResults;
 using Zerionix.Entrypoint;
 using Zerionix.GlobalStore.Interfaces;
 using Zerionix.GlobalStore.ManagerGlobalStore;
-using Microsoft.CodeAnalysis.Operations;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using Zerionix.Parser;
 using Zerionix.Parser.BlockOperationParsers;
+using Zerionix.Parser.BlockParsers;
+using Zerionix.Parser.ConditionParsers;
+using Zerionix.Parser.ConditionParsers.BinaryOperationEvaluationParser;
+using Zerionix.Parser.HelperParsers;
 using Zerionix.Parser.Interfaces;
 using Zerionix.Parser.Interfaces.BlockOperationParserInterfaces;
+using Zerionix.Parser.Interfaces.ConditionParserInterfaces;
+using Zerionix.Parser.Interfaces.HelperParserInterfaces;
 using Zerionix.Parser.Interfaces.OperationParserInterfaces;
 using Zerionix.Parser.OperationParsers;
 using Zerionix.Parser.ParserExecutors;
 using Zerionix.Service;
 using Zerionix.Service.Interfaces;
 using Zerionix.Service.RulesService;
-using Zerionix.Parser.BlockParsers;
-using Zerionix.Parser.ConditionParsers;
-using Zerionix.Parser.Interfaces.ConditionParserInterfaces;
-using Zerionix.Parser.ConditionParsers.BinaryOperationEvaluationParser;
 
 
 var services = new ServiceCollection();
@@ -34,6 +36,10 @@ services.AddLogging(builder =>
 #endif
 });
 
+// Global helpers to host logic in one place where duplication exists
+services.AddTransient<IBinaryOperatorMathHelper, BinaryOperatorMathHelper>();
+
+
 services.AddTransient<ICompareValueParser, CompareValueParser>();
 services.AddTransient<IEvaluateValueParser, EvaluateValueParser>();
 
@@ -44,6 +50,7 @@ services.AddTransient<IBinaryOperationEvaluationParser, EvaluateAndOrParser>();
 
 services.AddTransient<IConditionEvaluatorParser, ConditionEvaluatorParser>();
 
+services.AddTransient<IOperationParser<IBinaryOperation, BinaryOperationMathResult>, BinaryOperationMathParser>();
 services.AddTransient<IOperationParser<ISimpleAssignmentOperation, SimpleAssignmentResult>, SimpleAssignmentParser>();
 services.AddTransient<IMethodGlobalStoreManager, MethodGlobalStoreManager>();
 
