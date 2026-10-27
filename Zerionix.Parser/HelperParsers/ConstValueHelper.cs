@@ -1,4 +1,5 @@
 ﻿using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.FlowAnalysis;
 using Microsoft.CodeAnalysis.Operations;
 using System;
 using System.Collections.Generic;
@@ -33,6 +34,11 @@ namespace Zerionix.Parser.HelperParsers
             if (operation is ILiteralOperation literalOperation)
             {
                 return literalOperation.ConstantValue.Value;
+            }
+
+            if (operation is ILocalReferenceOperation localReferenceOperation)
+            {
+                return methodGlobalStore.SymbolicValueList.FirstOrDefault(s => s.VariableReference == localReferenceOperation.Local.Name)?.Constant;
             }
 
             return null;

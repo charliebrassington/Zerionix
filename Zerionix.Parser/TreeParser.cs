@@ -9,11 +9,11 @@ namespace Zerionix.Parser
 {
     public class TreeParser : ITreeParser
     {
-        private readonly IMethodParser _methodParser;
+        private readonly IMethodParserManager _methodParserManager;
 
-        public TreeParser(IMethodParser methodParser)
+        public TreeParser(IMethodParserManager methodParserManager)
         {
-            _methodParser = methodParser;
+            _methodParserManager = methodParserManager;
         }
 
         public List<MethodGlobalStore> ParseTrees(List<SyntaxTree> treeList)
@@ -25,19 +25,15 @@ namespace Zerionix.Parser
             };
 
             var compilation = CSharpCompilation.Create("Analysis", treeList, references);
-            var methodGlobalStoreList = new List<MethodGlobalStore>();  
+            var methodList = treeList.SelectMany(t => t.GetRoot().DescendantNodes().OfType<MethodDeclarationSyntax>()).ToList();
 
-            foreach (var tree in treeList)
+            var methodSemantics = treeList.Select(tree => new MethodSemantic
             {
-                var semanticModel = compilation.GetSemanticModel(tree);
+                SemanticTreeModel = compilation.GetSemanticModel(tree),
+                MethodDeclarationList = tree.GetRoot().DescendantNodes().OfType<MethodDeclarationSyntax>().ToList()
+            }).ToList();
 
-                var root = tree.GetRoot();
-
-                foreach (var method in root.DescendantNodes().OfType<MethodDeclarationSyntax>())
-                {
-                    methodGlobalStoreList.Add(_methodParser.ParseMethod(method, semanticModel));
-                }
-            }
+            var methodGlobalStoreList = _methodParserManager.HandleMethodParsing(methodSemantics);
 
             return methodGlobalStoreList;
         }

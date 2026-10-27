@@ -10,6 +10,17 @@ namespace Zerionix.GlobalStore.ManagerGlobalStore
     {
         public void AddSymbolicValue(List<SymbolicValue> symbolicValues, string keyToFetchFrom, string keyToStoreTo)
         {
+            if (keyToFetchFrom.EndsWith('.'))
+            {
+                var objValues = symbolicValues.Where(s => s.VariableReference.StartsWith(keyToFetchFrom));
+                var absoluteObjName = keyToFetchFrom.TrimEnd(".").ToString();
+
+                foreach(var objValue in objValues)
+                {
+                    objValue.VariableReference = objValue.VariableReference.Replace(absoluteObjName, keyToStoreTo);
+                }
+            }
+
             var value = symbolicValues.FirstOrDefault(s => s.VariableReference == keyToFetchFrom);
             if (value != null)
             {
@@ -33,6 +44,18 @@ namespace Zerionix.GlobalStore.ManagerGlobalStore
             {
                 existingSymbolicValue.Constant = valueToStore;
             }
+        }
+
+        public List<SymbolicValue> FetchObjectSymbolicValues(List<SymbolicValue> symbolicValues, object objectRef)
+        {
+            var objectNameRef = Convert.ToString(objectRef);
+
+            if (objectNameRef == null)
+                return [];
+
+            return objectNameRef.EndsWith(".") 
+                ? symbolicValues.Where(s => s.VariableReference.StartsWith(objectNameRef)).ToList() 
+                : [];
         }
     }
 }

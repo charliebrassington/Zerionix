@@ -9,6 +9,6 @@ namespace Zerionix.Parser.Interfaces
 {
     public interface IMethodParser
     {
-        MethodGlobalStore ParseMethod(MethodDeclarationSyntax method, SemanticModel semanticModel);
+        MethodGlobalStore ParseMethod(MethodDeclarationSyntax method, SemanticModel semanticModel, MethodGlobalStore methodStore);
     }
 }

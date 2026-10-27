@@ -1,16 +1,9 @@
-﻿using Zerionix.Domain.Models;
-using Microsoft.CodeAnalysis;
+﻿using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.FlowAnalysis;
-using Microsoft.CodeAnalysis.Operations;
-using Zerionix.Parser.BlockOperationParsers;
-using Zerionix.Parser.Interfaces;
-using Zerionix.Parser.Interfaces.BlockOperationParserInterfaces;
-using Zerionix.Parser.ParserExecutors;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Microsoft.Extensions.Logging;
+using Zerionix.Domain.Models;
+using Zerionix.Parser.Interfaces;
 
 namespace Zerionix.Parser
 {
@@ -30,10 +23,10 @@ namespace Zerionix.Parser
             _logger = logger;
         }
 
-        public MethodGlobalStore ParseMethod(MethodDeclarationSyntax method, SemanticModel semanticModel)
+        public MethodGlobalStore ParseMethod(MethodDeclarationSyntax method, SemanticModel semanticModel, MethodGlobalStore methodStore)
         {
 
-            var methodStore = new MethodGlobalStore { TracebackReference = method.SyntaxTree.FilePath };
+            methodStore.TracebackReference = method.SyntaxTree.FilePath;
 
             var cfg = ControlFlowGraph.Create(method, semanticModel);
 
@@ -44,8 +37,10 @@ namespace Zerionix.Parser
 
             BasicBlock? blockToVisit = null;
 
-            foreach (var block in cfg.Blocks)
+            foreach (var block in cfg.Blocks.Where(b => b.Ordinal >= methodStore.CurrentBlock))
             {
+                methodStore.CurrentBlock = block.Ordinal;
+
                 if (blockToVisit != null && block != blockToVisit)
                 {
                     continue;
@@ -54,14 +49,18 @@ namespace Zerionix.Parser
                 foreach (var op in block.Operations)
                 {
                     _logger.LogDebug("Parsing -> {method.Identifier}, Block: {block.Ordinal}, Op: {op.Kind}, Code: {op.Syntax}", method.Identifier, block.Ordinal, op.Kind, op.Syntax);
-
                     _blockOperationParserExecutor.Execute(op, methodStore);
                 }
 
                 _blockParserExecutor.Execute(block, methodStore);
 
+                if (methodStore.MethodState == MethodParsingState.WaitingForMethodCall)
+                    return methodStore;
+
                 blockToVisit = GetNextBlockToVisit(block, methodStore);
             }
+
+            methodStore.MethodState = MethodParsingState.Completed;
 
             return methodStore;
         }

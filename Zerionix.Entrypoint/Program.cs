@@ -11,10 +11,14 @@ using Zerionix.Parser.BlockOperationParsers;
 using Zerionix.Parser.BlockParsers;
 using Zerionix.Parser.ConditionParsers;
 using Zerionix.Parser.ConditionParsers.BinaryOperationEvaluationParser;
+using Zerionix.Parser.ConverterParsers;
+using Zerionix.Parser.EntrypointParser;
 using Zerionix.Parser.HelperParsers;
 using Zerionix.Parser.Interfaces;
 using Zerionix.Parser.Interfaces.BlockOperationParserInterfaces;
 using Zerionix.Parser.Interfaces.ConditionParserInterfaces;
+using Zerionix.Parser.Interfaces.ConverterParserInterfaces;
+using Zerionix.Parser.Interfaces.EntrypointParser;
 using Zerionix.Parser.Interfaces.HelperParserInterfaces;
 using Zerionix.Parser.Interfaces.OperationParserInterfaces;
 using Zerionix.Parser.OperationParsers;
@@ -37,11 +41,14 @@ services.AddLogging(builder =>
 #endif
 });
 
+services.AddTransient<IEntrypointDiscoveryParser, EntrypointDiscoveryParser>();
+
 // Global helpers to host logic in one place where duplication exists
 services.AddTransient<IConstValueHelper, ConstValueHelper>();
 services.AddTransient<IBinaryOperatorMathHelper, BinaryOperatorMathHelper>();
 services.AddTransient<IMathOperationValueHelper, MathOperationValueHelper>();
 services.AddTransient<IVariableNameHelper, VariableNameHelper>();
+services.AddTransient<IMethodCallHelper, MethodCallHelper>();
 
 services.AddTransient<ICompareValueParser, CompareValueParser>();
 services.AddTransient<IEvaluateValueParser, EvaluateValueParser>();
@@ -61,9 +68,11 @@ services.AddTransient<IBlockOperationParser, ExpressionVariableValueParser>();
 services.AddTransient<IBlockOperationParserExecutor, BlockOperationParserExecutor>();
 
 services.AddTransient<IBlockParser, ConditionParser>();
+services.AddTransient<IBlockParser, ReturnParser>();
 services.AddTransient<IBlockParserExecutor, BlockParserExecutor>();
 
 services.AddTransient<IMethodParser, MethodParser>();
+services.AddTransient<IMethodParserManager,  MethodParserManager>();
 
 services.AddTransient<IRuleExpressionBuilderService, RuleExpressionBuilderService>();
 services.AddTransient<IRuleValidatorParserService, RuleValidatorParserService>();

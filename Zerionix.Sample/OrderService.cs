@@ -6,13 +6,26 @@ namespace Zerionix.Sample
 {
     public class OrderService
     {
+
+        public decimal CalculateUserDiscount(int userId)
+        {
+            if (userId <= 0)
+                return 0m;
+
+            if (userId == 1)
+                return 50m;
+
+            return -1m;
+        }
+
         public Order CreateOrder(int userId)
         {
+            var discount = CalculateUserDiscount(userId);
             decimal total = 2m;
             var x = 2;
             var y = 99;
 
-            if (x == 1)
+            if (discount == 1m)
             {
                 total = -50m;
             }

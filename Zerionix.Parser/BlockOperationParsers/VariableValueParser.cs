@@ -30,12 +30,21 @@ namespace Zerionix.Parser.BlockOperationParsers
 
             var simpleAssignmentResult = _simpleAssignmentOperationParser.ParseOperation(simpleOp, methodGlobalStore);
 
-            if (simpleAssignmentResult.TargetName != null && simpleAssignmentResult.VariableName != null)
+            if (simpleAssignmentResult.TargetName == null)
+                return;
+
+            if (simpleAssignmentResult.MethodCallRequired != null)
+            {
+                methodGlobalStore.CurrentMethodCall = simpleAssignmentResult.MethodCallRequired;
+                methodGlobalStore.MethodState = MethodParsingState.WaitingForMethodCall;
+            }
+
+            if (simpleAssignmentResult.VariableName != null)
             {
                 _methodGlobalStore.AddSymbolicValue(methodGlobalStore.SymbolicValueList, simpleAssignmentResult.VariableName, simpleAssignmentResult.TargetName);
             }
 
-            if (simpleAssignmentResult.TargetName != null && simpleAssignmentResult.VariableValue != null)
+            if (simpleAssignmentResult.VariableValue != null)
             {
                 _methodGlobalStore.AddNewSymbolicValue(methodGlobalStore.SymbolicValueList, simpleAssignmentResult.TargetName, simpleAssignmentResult.VariableValue);
             }
